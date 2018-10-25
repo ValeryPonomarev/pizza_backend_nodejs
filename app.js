@@ -7,13 +7,19 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var catalogRouter = require('./routes/catalog');
+var wikiRouter = require('./routes/wiki');
 
 var app = express();
 
 //database setup
 var mongoose = require('mongoose');
-var connection_string = 'mongodb://root:root123@ds239873.mlab.com:39873/node_tutorial';
-mongoose.connect(connection_string);
+var connection_string = 'mongodb://root:root123@ds050539.mlab.com:50539/node_tutorial';
+mongoose.connect(connection_string)
+  .then(
+    () => { console.log("Connected to DB success") },
+    (err) => { }
+  );
 mongoose.Promise = global.Promise;
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, "MongoDB connection error: "));
@@ -30,6 +36,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/catalog', catalogRouter);
+app.use('/wiki', wikiRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
