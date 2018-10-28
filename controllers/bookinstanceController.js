@@ -1,12 +1,41 @@
 var BookInstance = require('../models/bookinstance');
 
 
-exports.bookinstance_list = (req, res) => {
-    res.send('NOT IMPLEMENTED: BookInstance list');
+exports.bookinstance_list = (req, res, next) => {
+    BookInstance.find()
+        .populate('book')
+        .exec((err, list_bookinstances) => {
+            if(err) {
+                return next(err);
+            }
+
+            res.render('bookinstance_list', {
+                title: 'Book Instance List',
+                bookinstance_list: list_bookinstances
+            });
+        });
 };
 
-exports.bookinstance_detail = (req, res) => {
-    res.send('NOT IMPLEMENTED: BookInstance detail: ' + req.params.id);
+exports.bookinstance_detail = (req, res, next) => {
+    BookInstance.findById(req.params.id)
+        .populate('book')
+        .exec((err, bookinstance) => {
+            if(err) {
+                return next(err);
+            }
+
+            if(bookinstance== null) {
+                var err = new Error('Book copy not found');
+                err.status = 404;
+                return next(err);
+            }
+
+            res.render('bookinstance_detail', {
+                title: 'Book:',
+                bookinstance: bookinstance
+            });
+        });
+    
 };
 
 exports.bookinstance_create_get = (req, res) => {

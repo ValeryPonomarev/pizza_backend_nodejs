@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node ./bin/www",
     "devstart": "nodemon ./bin/www",
-    "populate_test_data": "node mongodb://root:root123@ds050539.mlab.com:50539/node_tutorial"
+    "populate_test_data": "node populatedb mongodb://root:root123@ds050539.mlab.com:50539/node_tutorial"
   },
   "dependencies": {
     "async": "^2.6.1",
@@ -13,7 +13,9 @@
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
     "express": "~4.16.0",
+    "express-validator": "^5.3.0",
     "http-errors": "~1.6.2",
+    "moment": "^2.22.2",
     "mongoose": "^5.3.1",
     "morgan": "~1.9.0",
     "pug": "~2.0.0-rc.4",
