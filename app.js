@@ -14,7 +14,7 @@ var app = express();
 
 //database setup
 var mongoose = require('mongoose');
-var connection_string = 'mongodb://root:root123@ds050539.mlab.com:50539/node_tutorial';
+var connection_string = process.env.MONGODB_URI || 'mongodb://root:root123@ds050539.mlab.com:50539/node_tutorial';
 mongoose.connect(connection_string)
   .then(
     () => { console.log("Connected to DB success") },
