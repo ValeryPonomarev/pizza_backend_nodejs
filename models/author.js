@@ -49,4 +49,10 @@ AuthorSchema
         return '/catalog/author/' + this._id + '/delete';
     });
 
+AuthorSchema
+    .virtual('update_url')
+    .get(function() {
+        return '/catalog/author/' + this._id + '/update';
+    });
+
 module.exports = mongoose.model('Author', AuthorSchema);
